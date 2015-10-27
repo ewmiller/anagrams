@@ -1,1 +1,1 @@
-java -cp bin anagrams.java
+java -cp bin Anagrams
