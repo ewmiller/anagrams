@@ -3,11 +3,6 @@ import java.io.*;
 
 public class Anagrams {
 
-  //subroutine for comparing a string to the existing anagram classes
-  public static void anagramCompare(String s, List<List<String>> B){
-
-  }
-
   /* Main method; creates a new array for anagram classes and compares each
   word in the dictionary to the existing array of classes.
   Outputs anagram file when complete. */
@@ -24,10 +19,35 @@ public class Anagrams {
       e.printStackTrace(System.out);
     }
 
-    //Declares a list of lists
-    List<List<String>> B = new ArrayList<List<String>>();
+    //Declares an ArrayList of lists
+    ArrayList<List<String>> B = new ArrayList<List<String>>(A.size());
     for(String s : A){
-      anagramCompare(s, B);
+      findClass(s, B);
     }
+  }
+
+  //subroutine for comparing a string to the existing anagram classes
+  public static void findClass(String s, ArrayList<List<String>> B){
+
+    for(int i = 0; i < B.size(); i++){
+      if(B.get(i) == null){
+        B.get(i).add(s);
+        break;
+      }
+      else {
+        List<String> anagramClass = B.get(i);
+        boolean match = compare(s, anagramClass.get(0));
+        if(match){
+          B.get(i).add(s);
+          break;
+        }
+      }
+    }
+  }
+
+  //subroutine for comparing two strings to see if they are anagrams of each other
+  public static boolean compare(String s, String t){
+    //TODO: this
+    return true;
   }
 }
