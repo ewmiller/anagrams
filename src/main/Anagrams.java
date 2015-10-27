@@ -24,6 +24,26 @@ public class Anagrams {
     for(String s : A){
       findClass(s, B);
     }
+
+    //Write results to output file
+    //TODO: this
+    try {
+      File file = new File("./anagram1");
+      FileOutputStream out = new FileOutputStream(file);
+      if(file.exists() == false){
+        file.createNewFile();
+      }
+      for(List<String> list : B){
+        for(String s : list){
+          byte[] content = s.getBytes();
+          out.write(content);
+          out.flush();
+        }
+      }
+      out.close();
+    } catch(IOException e) {
+      e.printStackTrace(System.out);
+    }
   }
 
   //subroutine for comparing a string to the existing anagram classes
@@ -64,6 +84,8 @@ public class Anagrams {
         }
       } //end for loop
     } //end else
+    //if x and y were made equal by iterative process above, then
+    //strings s and t are anagrams
     if(x.equals(y))
       return true;
     else
