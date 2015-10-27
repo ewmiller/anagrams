@@ -47,19 +47,13 @@ public class Anagrams {
 
   //subroutine for comparing two strings to see if they are anagrams of each other
   private static boolean compare(String s, String t){
-    //if s.size != t.size, return false
-    //else make each string into a char array
-    //for each letter in s, ask if t contains that letter
-    //  if not, return false
-    //  else remove that letter from both arrays
-    //compare both arrays. if equal, return true. If unequal (one is not all
-    //null), return false.
-    if(s.length() != t.length()){
+    boolean res = false;
+    char[] x = s.toCharArray();
+    char[] y = t.toCharArray();
+    if(x.length != y.length) {
       return false;
     }
     else {
-      char[] x = s.toCharArray();
-      char[] y = t.toCharArray();
       for(int j = x.length; j < x.length; j++){
         if(contains(x[j], y)) {
           y[indexOf(x[j], y)] = ' ';
@@ -68,11 +62,12 @@ public class Anagrams {
         else {
           return false;
         }
-      }
-      if(x.equals(y))
-        return false;
-    }
-    return true;
+      } //end for loop
+    } //end else
+    if(x.equals(y))
+      return true;
+    else
+      return false;
   }
 
   //check if a char array contains a character
