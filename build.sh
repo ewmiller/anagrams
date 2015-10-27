@@ -1,1 +1,1 @@
-javac -d bin src/main/anagrams.java
+javac -g -d bin src/main/anagrams.java
