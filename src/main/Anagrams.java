@@ -54,10 +54,15 @@ public class Anagrams {
     //if string s matches first string in the list, add it
     //if no match found (use mutable bool?), create new list and add it to B
     boolean matched = false;
-    for(ArrayList<String> anagramClass : B){
-      if(compare(s, anagramClass.get(0))){
-        anagramClass.add(s);
+    for(int i = 0; i < B.size(); i++){
+      System.out.println("Comparing string " + s + " to B");
+      if(compare(s, B.get(i).get(0))){
+        B.get(i).add(s);
+        System.out.println("Found a match for string: " + s);
         matched = true;
+      }
+      else {
+        System.out.println("String " + s + " did not match B[" + i + "].");
       }
     }
     if(!matched){
@@ -65,46 +70,45 @@ public class Anagrams {
       newClass.add(s);
       B.add(newClass);
       System.out.println("made a new class for string: " + s);
+      System.out.println("Size of B is now: " + B.size());
     }
   }
 
   //subroutine for comparing two strings to see if they are anagrams of each other
+  //I've traced the problem to here. Comparison always fails.
   private static boolean compare(String s, String t){
     boolean res = false;
     char[] x = s.toCharArray();
     char[] y = t.toCharArray();
     if(x.length != y.length) {
+      System.out.println(x + " and " + y + " are of different length. Not anagrams.");
       return false;
     }
     else {
       for(int j = 0; j < x.length; j++){
         if(contains(x[j], y)) {
+          System.out.println(s + " and " + t + " both contain character " + x[j]);
           y[indexOf(x[j], y)] = ' ';
           x[j] = ' ';
+          res = true;
         }
         else {
           return false;
         }
       } //end for loop
     } //end else
-    //if x and y were made equal by iterative process above, then
-    //strings s and t are anagrams
-    if(x.equals(y))
-      return true;
-    else
-      return false;
+    return res;
   }
 
   //check if a char array contains a character
   private static boolean contains(char c, char[] array){
-    boolean res = false;
     for(int i = 0; i < array.length; i++){
       if(c == array[i]){
-        res = true;
-        break;
+
+        return true;
       }
     }
-    return res;
+    return false;
   }
 
   //return index of character in an array
