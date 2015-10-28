@@ -14,7 +14,7 @@ organized by anagram class, where each line in the file is a separate class.
 
 Provided in the directory are two bash scripts, `build.sh` and `run.sh`.
 The build script is used for compilation. The run script will prompt for user
-input and then execute the program. To read file `dict1`, simply type `dict1`
+input and then execute the program. To read file `dict1`, simply type `1`
 when asked (likewise for `dict2`). Screen output will be shown during runtime
 to track progress of the program. When done, the file `anagram1` or `anagram2`
 will become available in the directory.
@@ -32,10 +32,3 @@ add the word to that class (append to list). If the word matches no existing
 classes (iteration hits an empty row in B), add that word to a new equivalence
 class in B.
 5. Call a print function on B to write each row to a line in a text file.
-
-## Run Time
-
-In the worst case, every word in the given dictionary is part of its own anagram
-class (none are equivalent). Thus the algorithm would have to iterate through
-the array of anagram classes completely, on every word. (Actual runtime analysis
-TBD).

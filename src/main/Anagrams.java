@@ -13,9 +13,9 @@ public class Anagrams {
     long startTime = System.nanoTime(); //to keep track of runtime
     List<String> A = new ArrayList<String>();
     try {
-      String filePath = String.format("./src/main/resources/%s", args[0]);
+      String filePath = String.format("./src/main/resources/dict%s", args[0]);
       Scanner fileScanner = new Scanner(new File(filePath));
-      System.out.println("Reading file: dict0");
+      System.out.println(String.format("Reading file: dict%s", args[0]));
       while(fileScanner.hasNextLine()){
         String str = fileScanner.nextLine();
         A.add(str); //this works
@@ -26,22 +26,20 @@ public class Anagrams {
 
     //declares a list of lists of strings
     ArrayList<ArrayList<String>> B = new ArrayList<ArrayList<String>>();
-    for(String s : A){ //debug: iterating through A works. Problem is... deeper.
+    for(String s : A) {
       findClass(s, B);
     }
 
     //Write results to output file
     try {
-      File file = new File("./anagram1"); // this works
-
+      String writePath = String.format("./anagram%s", args[0]);
+      File file = new File(writePath);
       FileWriter fWriter = new FileWriter(file);
       PrintWriter pWriter = new PrintWriter(fWriter);
 
       for(int i = 0; i < B.size(); i++){ //for every element in B
-        System.out.println("processing line " + i + " of B"); //debug
         for(String s : B.get(i)){ // for every string in the element of B
           pWriter.print(s + " ");
-          System.out.println("writing content: " + s);
         }
         pWriter.print("\n");
       }
@@ -50,7 +48,7 @@ public class Anagrams {
       e.printStackTrace(System.out);
     }
     long endTime = System.nanoTime();
-    System.out.println("Elapsed time: " + (endTime - startTime));
+    System.out.println("Elapsed time: " + (endTime - startTime)/1000000000 + " seconds");
     System.out.println("Total anagram classes: " + B.size());
   }
 
@@ -59,24 +57,20 @@ public class Anagrams {
     //given a string and a list of lists to look at
     //for each list in B
     //if string s matches first string in the list, add it
-    //if no match found (use mutable bool?), create new list and add it to B
+    //if no match found, create new list and add it to B
     boolean matched = false;
     for(int i = 0; i < B.size(); i++){
-      System.out.println("Comparing string " + s + " to B[" + i +"]");
       if(compare(s, B.get(i).get(0))){
         B.get(i).add(s);
-        System.out.println("Found a match for string: " + s);
         matched = true;
       }
       else {
-        // System.out.println("String " + s + " did not match B[" + i + "].");
       }
     }
     if(!matched){
       ArrayList<String> newClass = new ArrayList<String>();
       newClass.add(s);
       B.add(newClass);
-      System.out.println("made a new class for string: " + s);
     }
   }
 
@@ -87,13 +81,11 @@ public class Anagrams {
     char[] x = s.toCharArray();
     char[] y = t.toCharArray();
     if(x.length != y.length) {
-      // System.out.println(x + " and " + y + " are of different length. Not anagrams.");
       return false;
     }
     else {
       for(int j = 0; j < x.length; j++){
         if(contains(x[j], y)) {
-          // System.out.println(s + " and " + t + " both contain character " + x[j]);
           y[indexOf(x[j], y)] = ' ';
           x[j] = ' ';
           res = true;
@@ -110,7 +102,6 @@ public class Anagrams {
   private static boolean contains(char c, char[] array){
     for(int i = 0; i < array.length; i++){
       if(c == array[i]){
-
         return true;
       }
     }
