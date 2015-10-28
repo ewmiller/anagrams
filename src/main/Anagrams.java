@@ -10,8 +10,8 @@ public class Anagrams {
   public static void main(String[] args){
     List<String> A = new ArrayList<String>();
     try {
-      Scanner fileScanner = new Scanner(new File("./src/main/resources/dict1"));
-      System.out.println("Reading file: dict1");
+      Scanner fileScanner = new Scanner(new File("./src/main/resources/dict0"));
+      System.out.println("Reading file: dict0");
       while(fileScanner.hasNextLine()){
         String str = fileScanner.nextLine();
         A.add(str); //this works
@@ -77,7 +77,7 @@ public class Anagrams {
       return false;
     }
     else {
-      for(int j = x.length; j < x.length; j++){
+      for(int j = 0; j < x.length; j++){
         if(contains(x[j], y)) {
           y[indexOf(x[j], y)] = ' ';
           x[j] = ' ';
@@ -98,8 +98,8 @@ public class Anagrams {
   //check if a char array contains a character
   private static boolean contains(char c, char[] array){
     boolean res = false;
-    for(char ch : array){
-      if(c == ch){
+    for(int i = 0; i < array.length; i++){
+      if(c == array[i]){
         res = true;
         break;
       }
