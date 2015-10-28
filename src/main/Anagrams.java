@@ -13,55 +13,58 @@ public class Anagrams {
       Scanner fileScanner = new Scanner(new File("./src/main/resources/dict1"));
       System.out.println("Reading file: dict1");
       while(fileScanner.hasNextLine()){
-        A.add(fileScanner.nextLine());
+        String str = fileScanner.nextLine();
+        A.add(str); //this works
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace(System.out);
     }
 
-    //Declares an ArrayList of lists
-    ArrayList<List<String>> B = new ArrayList<List<String>>(A.size());
-    for(String s : A){
+    //declares a list of lists of strings
+    ArrayList<ArrayList<String>> B = new ArrayList<ArrayList<String>>();
+    for(String s : A){ //debug: iterating through A works. Problem is... deeper.
       findClass(s, B);
     }
 
     //Write results to output file
-    //TODO: this
     try {
-      File file = new File("./anagram1");
-      FileOutputStream out = new FileOutputStream(file);
-      if(file.exists() == false){
-        file.createNewFile();
-      }
-      for(List<String> list : B){
-        for(String s : list){
-          byte[] content = s.getBytes();
-          out.write(content);
-          out.flush();
+      File file = new File("./anagram1"); // this works
+
+      FileWriter fWriter = new FileWriter(file);
+      PrintWriter pWriter = new PrintWriter(fWriter);
+
+      for(int i = 0; i < B.size(); i++){ //for every element in B
+        System.out.println("processing line " + i + " of B"); //debug
+        for(String s : B.get(i)){ // for every string in the element of B
+          pWriter.print(s + " ");
+          System.out.println("writing content: " + s);
         }
+        pWriter.print("\n");
       }
-      out.close();
+      pWriter.close();
     } catch(IOException e) {
       e.printStackTrace(System.out);
     }
   }
 
   //subroutine for comparing a string to the existing anagram classes
-  private static void findClass(String s, ArrayList<List<String>> B){
-
-    for(int i = 0; i < B.size(); i++){
-      if(B.get(i) == null){
-        B.get(i).add(s);
-        break;
+  private static void findClass(String s, ArrayList<ArrayList<String>> B){
+    //given a string and a list of lists to look at
+    //for each list in B
+    //if string s matches first string in the list, add it
+    //if no match found (use mutable bool?), create new list and add it to B
+    boolean matched = false;
+    for(ArrayList<String> anagramClass : B){
+      if(compare(s, anagramClass.get(0))){
+        anagramClass.add(s);
+        matched = true;
       }
-      else {
-        List<String> anagramClass = B.get(i);
-        boolean match = compare(s, anagramClass.get(0));
-        if(match){
-          B.get(i).add(s);
-          break;
-        }
-      }
+    }
+    if(!matched){
+      ArrayList<String> newClass = new ArrayList<String>();
+      newClass.add(s);
+      B.add(newClass);
+      System.out.println("made a new class for string: " + s);
     }
   }
 
