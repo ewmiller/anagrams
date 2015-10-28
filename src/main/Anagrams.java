@@ -8,9 +8,10 @@ public class Anagrams {
   Outputs anagram file when complete. */
 
   public static void main(String[] args){
+    startTime = System.nanoTime();
     List<String> A = new ArrayList<String>();
     try {
-      Scanner fileScanner = new Scanner(new File("./src/main/resources/dict0"));
+      Scanner fileScanner = new Scanner(new File("./src/main/resources/dict1"));
       System.out.println("Reading file: dict0");
       while(fileScanner.hasNextLine()){
         String str = fileScanner.nextLine();
@@ -45,6 +46,8 @@ public class Anagrams {
     } catch(IOException e) {
       e.printStackTrace(System.out);
     }
+    endTime = System.nanoTime();
+    System.out.println("Elapsed time: " + (endTime - startTime));
   }
 
   //subroutine for comparing a string to the existing anagram classes
@@ -55,14 +58,14 @@ public class Anagrams {
     //if no match found (use mutable bool?), create new list and add it to B
     boolean matched = false;
     for(int i = 0; i < B.size(); i++){
-      System.out.println("Comparing string " + s + " to B");
+      System.out.println("Comparing string " + s + " to B[" + i +"]");
       if(compare(s, B.get(i).get(0))){
         B.get(i).add(s);
         System.out.println("Found a match for string: " + s);
         matched = true;
       }
       else {
-        System.out.println("String " + s + " did not match B[" + i + "].");
+        // System.out.println("String " + s + " did not match B[" + i + "].");
       }
     }
     if(!matched){
@@ -70,7 +73,6 @@ public class Anagrams {
       newClass.add(s);
       B.add(newClass);
       System.out.println("made a new class for string: " + s);
-      System.out.println("Size of B is now: " + B.size());
     }
   }
 
@@ -81,13 +83,13 @@ public class Anagrams {
     char[] x = s.toCharArray();
     char[] y = t.toCharArray();
     if(x.length != y.length) {
-      System.out.println(x + " and " + y + " are of different length. Not anagrams.");
+      // System.out.println(x + " and " + y + " are of different length. Not anagrams.");
       return false;
     }
     else {
       for(int j = 0; j < x.length; j++){
         if(contains(x[j], y)) {
-          System.out.println(s + " and " + t + " both contain character " + x[j]);
+          // System.out.println(s + " and " + t + " both contain character " + x[j]);
           y[indexOf(x[j], y)] = ' ';
           x[j] = ' ';
           res = true;
