@@ -3,15 +3,18 @@ import java.io.*;
 
 public class Anagrams {
 
-  /* Main method; creates a new array for anagram classes and compares each
-  word in the dictionary to the existing array of classes.
-  Outputs anagram file when complete. */
+  /* Main method:
+  Reads the dictionary in as a list A of strings. Creates a "list of lists" B
+  that will hold the anagram classes. For each word in the dictionary, it compares
+  the word to the anagram classes that have been found so far. If it matches a
+  class, adds it to that class. If no match found, creates a new class.*/
 
   public static void main(String[] args){
-    startTime = System.nanoTime();
+    long startTime = System.nanoTime(); //to keep track of runtime
     List<String> A = new ArrayList<String>();
     try {
-      Scanner fileScanner = new Scanner(new File("./src/main/resources/dict1"));
+      String filePath = String.format("./src/main/resources/%s", args[0]);
+      Scanner fileScanner = new Scanner(new File(filePath));
       System.out.println("Reading file: dict0");
       while(fileScanner.hasNextLine()){
         String str = fileScanner.nextLine();
@@ -46,8 +49,9 @@ public class Anagrams {
     } catch(IOException e) {
       e.printStackTrace(System.out);
     }
-    endTime = System.nanoTime();
+    long endTime = System.nanoTime();
     System.out.println("Elapsed time: " + (endTime - startTime));
+    System.out.println("Total anagram classes: " + B.size());
   }
 
   //subroutine for comparing a string to the existing anagram classes

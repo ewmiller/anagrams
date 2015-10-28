@@ -10,6 +10,15 @@ organized by anagram class, where each line in the file is a separate class.
 
 ---
 
+## Usage
+
+Provided in the directory are two bash scripts, `build.sh` and `run.sh`.
+The build script is used for compilation. The run script will prompt for user
+input and then execute the program. To read file `dict1`, simply type `dict1`
+when asked (likewise for `dict2`). Screen output will be shown during runtime
+to track progress of the program. When done, the file `anagram1` or `anagram2`
+will become available in the directory.
+
 ## Algorithm
 
 The general algorithm for this program is as follows:
