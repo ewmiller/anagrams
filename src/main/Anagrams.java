@@ -48,7 +48,8 @@ public class Anagrams {
       e.printStackTrace(System.out);
     }
     long endTime = System.nanoTime();
-    System.out.println("Elapsed time: " + (endTime - startTime)/1000000000 + " seconds");
+    long totalTime = (endTime - startTime)/1000000000;
+    System.out.println("Elapsed time: " + totalTime + " seconds");
     System.out.println("Total anagram classes: " + B.size());
   }
 
@@ -75,7 +76,6 @@ public class Anagrams {
   }
 
   //subroutine for comparing two strings to see if they are anagrams of each other
-  //I've traced the problem to here. Comparison always fails.
   private static boolean compare(String s, String t){
     boolean res = false;
     char[] x = s.toCharArray();
